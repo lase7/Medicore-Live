@@ -1,0 +1,17 @@
+# 1. Security (CRITICAL)
+.env
+
+# 2. Python System Files (Junk)
+__pycache__/
+*.pyc
+
+# 3. Virtual Environment (Too big, not needed)
+venv/
+env/
+
+# 4. Database (Keep your local test data local)
+db.sqlite3
+
+# 5. OS Junk (Mac/Windows system files)
+.DS_Store
+Thumbs.db

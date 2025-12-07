@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCore Patient Search</title>
+    <style>
+        /* --- MediCore Brand Styling --- */
+        :root {
+            --brand-light-blue: #C2E9FB;
+            --brand-mid-blue: #3A7BD5;
+            --brand-dark-blue: #002555;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(180deg, var(--brand-light-blue) 0%, var(--brand-mid-blue) 50%, var(--brand-dark-blue) 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 37, 85, 0.2);
+        }
+
+        h1 {
+            color: var(--brand-dark-blue);
+            border-bottom: 3px solid var(--brand-mid-blue);
+            padding-bottom: 15px;
+            margin-top: 0;
+            font-weight: 700;
+        }
+        
+        /* Search Bar */
+        .search-box { display: flex; gap: 15px; margin-bottom: 40px; margin-top: 30px;}
+        input[type="text"] {
+            flex-grow: 1; padding: 16px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 16px; outline: none;
+        }
+        input[type="text"]:focus { border-color: var(--brand-mid-blue); }
+        
+        button {
+            background: linear-gradient(135deg, var(--brand-mid-blue), var(--brand-dark-blue));
+            color: white; border: none; padding: 15px 35px;
+            border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: 600;
+        }
+        button:hover { transform: translateY(-2px); }
+
+        /* Patient Card */
+        h3 { color: var(--brand-dark-blue); }
+        .patient-card {
+            border-left: 6px solid var(--brand-dark-blue);
+            background: #f8fbfe; padding: 25px; margin-bottom: 20px;
+            border-radius: 12px;
+        }
+        .patient-name { font-size: 22px; font-weight: 700; color: var(--brand-dark-blue); }
+        .patient-meta { color: #555; font-size: 15px; margin-top: 8px; }
+
+        /* AI Badge Area */
+        .ai-badge {
+            margin-top: 15px; padding-top: 15px; border-top: 1px solid #e1e8ed;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .ai-btn {
+            background: var(--brand-mid-blue); color: white; text-decoration: none;
+            padding: 8px 15px; border-radius: 5px; font-size: 14px; font-weight: bold;
+            transition: background 0.3s;
+        }
+        .ai-btn:hover { background: var(--brand-dark-blue); }
+        
+        .back-link {
+            display: inline-block; margin-top: 30px; text-decoration: none;
+            color: var(--brand-dark-blue); font-weight: 600; padding: 10px 20px;
+            border-radius: 6px;
+        }
+        .back-link:hover { color: var(--brand-mid-blue); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Patient Records Vault</h1>
+    
+    <form method="GET" action="." class="search-box">
+        <input type="text" name="q" placeholder="Enter patient name..." value="{{ query|default:'' }}">
+        <button type="submit">Search Records</button>
+    </form>
+
+    {% if query %}
+        <h3>Search Results for: "<em>{{ query }}</em>"</h3>
+        
+        {% if results %}
+            {% for patient in results %}
+                <div class="patient-card">
+                    <div class="patient-name">{{ patient.last_name }}, {{ patient.first_name }}</div>
+                    <div class="patient-meta">
+                        <strong>DOB:</strong> {{ patient.date_of_birth }} | 
+                        <strong>Email:</strong> {{ patient.email }}
+                    </div>
+                    
+                    <div class="ai-badge">
+                        <div style="color: var(--brand-mid-blue);">
+                            <span style="font-size: 18px;">✨</span> 
+                            <strong>GemmaCare AI:</strong> Ready to analyze.
+                        </div>
+                        <a href="{% url 'analyze_patient' patient.id %}" class="ai-btn">Run Analysis</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="color: red; padding: 20px;">No patient records found.</p>
+        {% endif %}
+    
+    {% endif %}
+    
+    <br>
+    <a href="/" class="back-link">← Return to Lobby</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container" style="max-width: 1000px; margin: 0 auto; padding: 40px;">
+    
+    <div class="header-section" style="text-align: center; margin-bottom: 50px;">
+        <h1 style="color: #003366; font-size: 2.5rem; margin-bottom: 10px;">MediCore Command Center</h1>
+        <p style="color: #666; font-size: 1.2rem;">System Online. Ready for analysis.</p>
+    </div>
+
+    <div class="stats-row" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px;">
+        <div class="card" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 200px; text-align: center; border-top: 5px solid #003366;">
+            <h3 style="margin: 0; color: #888; font-size: 0.9rem;">TOTAL PATIENTS</h3>
+            <p style="margin: 10px 0 0; font-size: 2.5rem; font-weight: bold; color: #003366;">{{ total_patients }}</p>
+        </div>
+        <div class="card" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 200px; text-align: center; border-top: 5px solid #28a745;">
+            <h3 style="margin: 0; color: #888; font-size: 0.9rem;">AI STATUS</h3>
+            <p style="margin: 10px 0 0; font-size: 1.2rem; font-weight: bold; color: #28a745; line-height: 2.5rem;">ACTIVE</p>
+        </div>
+    </div>
+
+    <div class="action-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        
+        <a href="/patients/search/" style="text-decoration: none; color: inherit;">
+            <div class="action-card" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.2s; border: 1px solid #eee;">
+                <h2 style="color: #0056b3;">🔍 Search Records</h2>
+                <p style="color: #666;">Find patient history and run AI analysis.</p>
+            </div>
+        </a>
+
+        <a href="/patients/add/" style="text-decoration: none; color: inherit;">
+            <div class="action-card" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.2s; border: 1px solid #eee;">
+                <h2 style="color: #0056b3;">➕ New Patient</h2>
+                <p style="color: #666;">Register a new admission to the database.</p>
+            </div>
+        </a>
+
+        <a href="/admin/" style="text-decoration: none; color: inherit;">
+            <div class="action-card" style="background: #f8f9fa; padding: 30px; border-radius: 15px; border: 2px dashed #ccc;">
+                <h2 style="color: #555;">⚙️ Admin Panel</h2>
+                <p style="color: #666;">Manage users and system settings.</p>
+            </div>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

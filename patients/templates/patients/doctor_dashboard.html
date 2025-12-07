@@ -1,0 +1,41 @@
+{% extends 'patients/base.html' %}
+
+{% block content %}
+<h2>Doctor's Console</h2>
+
+<form method="get" action="" style="margin-bottom: 2rem; display: flex; gap: 10px;">
+    <input type="text" name="q" placeholder="Search Name or DOB (YYYY-MM-DD)..." 
+           value="{{ search_query|default:'' }}" style="flex-grow: 1; padding: 10px;">
+    <button type="submit" class="btn btn-primary">Secure Search</button>
+</form>
+
+{% if patients %}
+    <table>
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Full Name</th>
+                <th>Date of Birth</th>
+                <th>Blood Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr>
+                <td>#{{ patient.id }}</td>
+                <td>{{ patient.full_name }}</td>
+                <td>{{ patient.date_of_birth }}</td>
+                <td>{{ patient.blood_type }}</td>
+                <td>
+                    <a href="{% url 'patient_detail' patient.id %}" class="btn btn-primary">Access Record</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No records found. Please initiate a search or add a new patient.</p>
+{% endif %}
+
+{% endblock %}

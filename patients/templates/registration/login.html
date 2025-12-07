@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MediCore Secure</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .brand { color: #005f73; font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .badge { background: #9b2226; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; vertical-align: middle; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a9396;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .btn:hover { background-color: #005f73; }
+        .help-text { color: #666; font-size: 0.9rem; margin-top: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2 class="brand">MediCore <span class="badge">HIPAA SECURE</span></h2>
+        <p style="color: #666; margin-bottom: 2rem;">Please log in to access your portal</p>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="text-align: left; font-size: 0.9em; color: #333;">Username</div>
+            {{ form.username }}
+            
+            <div style="text-align: left; font-size: 0.9em; color: #333; margin-top: 10px;">Password</div>
+            {{ form.password }}
+
+            <button type="submit" class="btn">Secure Login</button>
+        </form>
+        
+        {% if form.errors %}
+            <p style="color: #9b2226; margin-top: 1rem; font-size: 0.9rem;">Invalid credentials. Please try again.</p>
+        {% endif %}
+
+        <div class="help-text">
+            For technical support, please contact IT.<br>
+            <em>Protected by 256-bit Encryption</em>
+        </div>
+    </div>
+
+</body>
+</html>
